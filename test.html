@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>How to Create and Save text file in JavaScript</title>
+    <script src="src/FileSaver.js"></script>
+    <script src="src/jszip.min.js"></script>
+    
+    <script>
+
+        function saveStaticDataToFile() {
+            var zip = new JSZip();
+            zip.file("hello.txt", "123");
+            zip.folder("test").file("heoolintest.txt", "hello");
+            zip.generateAsync({type:"blob"})
+            .then(function (blob) {
+                saveAs(blob, "hello.zip");
+            });
+        }
+		
+    </script>
+</head>
+<body>
+
+    <button type="button" onclick="saveStaticDataToFile();">Click to Save</button>
+
+</body>
+</html>

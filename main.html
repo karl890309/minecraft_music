@@ -1,0 +1,100 @@
+<!doctype html>
+<html style = "background-color: rgb(36, 36, 36);">
+	<head>
+		<title>minecraft music</title>
+	</head>    
+	<script src="src/FileSaver.js"></script>
+    <script src="src/jszip.min.js"></script>
+	<script src="src/jquery-3.6.0.min.js"></script>
+	<script src="NodeClass.js"></script>
+	<script src="add_node.js"></script>
+	<script src="minecraft_music.js"></script>
+	<body>
+		<div id="clickit" style="width: 100%;margin:0px auto;
+		height:100%;text-align:center;color:white;">
+			<table style="margin:0px auto;">
+				<tr>
+					<td>other:</td>
+					<td>F♯3~F♯5 </td>
+				</tr>
+				<tr>
+					<td>wood:</td>
+					<td>F♯1~F♯3</td>
+				</tr>
+				<tr>
+					<td>sand:</td>
+					<td>————</td>
+				</tr>
+				<tr>
+					<td>glass:</td>
+					<td>————</td>
+				</tr>
+				<tr>
+					<td>stone:</td>
+					<td>————</td>
+				</tr>
+				<tr>
+					<td>gold_block:</td>
+					<td>F♯5~F♯7</td>
+				</tr>
+				<tr>
+					<td>clay:</td>
+					<td>F♯4~F♯6</td>
+				</tr>
+				<tr>
+					<td>packed_ice:</td>
+					<td>F♯5~F♯7</td>
+				</tr>
+				<tr>
+					<td>wool:</td>
+					<td>F♯2~F♯4</td>
+				</tr>
+				<tr>
+					<td>bone:</td>
+					<td>F♯5~F♯7</td>
+				</tr>
+				<tr>
+					<td>iron_block:</td>
+					<td>F♯3~F♯5</td>
+				</tr>
+				<tr>
+					<td>soul_sand:</td>
+					<td>F♯4~F♯6</td>
+				</tr>
+				<tr>
+					<td>pumpkin:</td>
+					<td>F♯1~F♯3</td>
+				</tr>
+				<tr>
+					<td>emerald_block:</td>
+					<td>F♯3~F♯5</td>
+				</tr>
+				<tr>
+					<td>hay_block:</td>
+					<td>F♯3~F♯5</td>
+				</tr>
+				<tr>
+					<td>glowstone:</td>
+					<td>F♯3~F♯5</td>
+				</tr>
+			</table>
+			<p>Using alda code. And no support {},(),%,=<br>
+				The shortest node is thirty-second note. Quarter note = 0.4s.<br>
+				 You can play 16 any block and 5 other block at the same time.<br>
+				sand, glass and stone use "o4 c"</p>
+			<textarea style="background-color: rgb(61, 61, 61);color:white;margin:0px auto;" id = "code_input" rows = "10", cols = "50"></textarea>
+			<table style="margin:0px auto;">
+				<tr>
+					<td><button id = "download" style="margin:10px">Download</button></td>
+					<td><button id = "playsound" style="margin:10px">Playsound</button></td>
+					<td><input id = "volume" type="range" min="0" max="100" value="1"></input><div id="show_volume">volume: 1</div></td>
+				</tr>
+			</table>
+			<div id="errormsg"></div>
+			<div id="debug"></div>
+		</div>
+
+		
+	</body>
+	
+</html>
