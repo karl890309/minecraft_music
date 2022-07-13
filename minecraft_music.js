@@ -54,6 +54,9 @@ function getcommand(pos, pitch, instrument){
     return `id:chest_minecart,Tags:['n'],Items:[{Slot:${pos},id:'${insArr[instrument]}',Count:${pitch}}],Passengers:[{`;
 }
 function generate_command(array){
+    if (array.length == 0){
+        return;
+    }
     var timesave = array.at(-1).time;
     var stringfront = `summon armor_stand ~ ~ ~ {Tags:['generate'],Passengers:[{`;
     var stringafter = "}]}";
