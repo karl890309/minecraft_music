@@ -45,7 +45,6 @@ class NoteClass {
     play(time){
         var realTime = new Date().getTime();
         this.saveTimeout = setTimeout(()=>{
-            console.log("play", this.toString())
             this.audio.play();
         }, this.time*50-(realTime-time));
     }
