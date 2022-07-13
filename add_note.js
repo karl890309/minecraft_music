@@ -13,6 +13,9 @@ $(()=>{ //$(document).ready(function(){
     append_node(jqbody, "bone_block", 5);
     append_node(jqbody, "soul_sand", 4);
     append_node(jqbody, "pumpkin", 1);
+    jqbody.append(`<audio id='sand_o4c' preload='auto' src='sound/sand_o4c.wav' type='audio/wav'></audio>`);
+    jqbody.append(`<audio id='glass_o4c' preload='auto' src='sound/glass_o4c.wav' type='audio/wav'></audio>`);
+    jqbody.append(`<audio id='stone_o4c' preload='auto' src='sound/stone_o4c.wav' type='audio/wav'></audio>`);
 
 })
 
