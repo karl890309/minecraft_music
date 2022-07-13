@@ -118,6 +118,7 @@ function compile(array){
         isaddTime--;
         if (!value.search(/other|wood|sand|glass|stone|gold_block|clay|packed_ice|wool|bone|iron_block|soul_sand|pumpkin|emerald_block|hay_block|glowstone/)){
             instrument = value;
+            time = 0;
         }else if (!value.search(/[abcdefgr]/)){
             var pointnum = 0;
             var sharp = 0;
