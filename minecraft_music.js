@@ -1,7 +1,9 @@
 $(()=>{ //$(document).ready(function(){
-
+    var playing = false;
+    var array = [];
     $("#playsound").click(()=>{
-        var array = [];
+        $.each(array, (i, val)=>{val.kill_timeout()})
+        array = [];
         if (!compile(array)){
             console.log("error return 3", array);
             return;
@@ -56,6 +58,7 @@ function generate_command(array){
     var stringfront = `summon armor_stand ~ ~ ~ {Tags:['generate'],Passengers:[{`;
     var stringafter = "}]}";
     var commandCount = 0;
+    $("#command_list").html("");
     $.each(array.reverse(), (index, value)=>{
         if (timesave != value.time){
             stringfront += getcommand(22, timesave - value.time, 14);

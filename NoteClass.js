@@ -20,6 +20,7 @@ class NoteClass {
         this.audio.volume = $("#volume").val()/100;
         this.noteBlock = (pitch*12+note) - (this.pitchArray.at(this.instrument)*12+6);
         this.posnum = 0;
+        this.saveTimeout = null;
     }
     biggerthan(note){
         if (this.time != note.time){
@@ -35,7 +36,7 @@ class NoteClass {
     }
     play(time){
         var realTime = new Date().getTime();
-        setTimeout(()=>{
+        this.saveTimeout = setTimeout(()=>{
             console.log("play", this.toString())
             this.audio.play();
         }, this.time*50-(realTime-time));
@@ -45,5 +46,10 @@ class NoteClass {
     }
     setposnum(num){
         this.posnum = num;
+    }
+    kill_timeout(){
+        if (this.saveTimeout){
+            clearTimeout(this.saveTimeout);
+        }
     }
 }
