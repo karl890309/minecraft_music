@@ -16,11 +16,19 @@ class NoteClass {
         this.pitch = pitch;
         this.note = note;
         this.time = time;
-        this.audio = $(`#${instrument}_o${pitch}${this.notearray.at(note)}`).get()[0].cloneNode();
+        var temp = $(`#${instrument}_o${pitch}${this.notearray.at(note)}`).get(0)
+        if (temp == undefined){
+            this.audio = undefined;
+            return ;
+        }
+        this.audio = temp.cloneNode();
         this.audio.volume = $("#volume").val()/100;
         this.noteBlock = (pitch*12+note) - (this.pitchArray.at(this.instrument)*12+6);
         this.posnum = 0;
         this.saveTimeout = null;
+    }
+    canplay(){
+        return this.audio != undefined;
     }
     biggerthan(note){
         if (this.time != note.time){

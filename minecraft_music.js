@@ -145,7 +145,16 @@ function compile(array){
                     localPitch += Math.floor(ptr/12);
                     ptr = ((ptr % 12) + 12) % 12;
                 }
-                insert_note(array, new NoteClass(instrument, pitch, ptr, time));
+                var cancreate = new NoteClass(instrument, pitch, ptr, time);
+                if (cancreate.canplay()){
+                    insert_note(array, cancreate);
+                }
+                else {
+                    error(`"o${pitch} ${value}" over limit`);
+                    returnval = false;
+                    console.log("error return 5");
+                    return;
+                }
             }
             time += length;
 
