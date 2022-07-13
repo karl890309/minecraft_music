@@ -1,43 +1,121 @@
 $(()=>{ //$(document).ready(function(){
 
     $("#playsound").click(()=>{
-        $("#errormsg").html("");
-        var time = new Date().getTime();
-        
-        var str = remove_space($("#code_input").val());
-        var str = string_times(str);
         var array = [];
-        
-        if (!compile(array, str)){
+        if (!compile(array)){
             console.log("error return 3", array);
             return;
         }
-        playnode(array);
-        console.log(array);
+        if (!set_note_pos(array)){
+            console.log("error return 4", array);
+            return;
+        };
+        playnote(array);
+        generate_command(array);
     });
     $("#volume").get()[0].oninput = function(){
         $("#show_volume").html("volume: "+$("#volume").val());
     }
 });
+function set_note_pos(array){
+    var list = [];
+    var ptr = 0;
+    var time = -1;
+    var returnval = true;
+    for (var i = 0; i < 21; i++){
+        list.push(false);
+    }
+    $.each(array, (index, value)=>{
+        ptr = value.limit.at(0);
+        if (value.time != time){
+            time = value.time;
+            list = [];
+            for (var i = 0; i < 21; i++){
+                list.push(false);
+            }
+        }
+        while(list.at(ptr)){
+            ptr++;
+        }
+        if (list.at(ptr) == undefined || ptr > value.limit.at(1)){
+            returnval = false;
+            error("too much note at the same time.");
+            return;
+        }
+        value.setposnum(ptr);
+        list[ptr] = true;
+    });
+    return returnval;
+}
+function getcommand(pos, pitch, instrument){
+    var insArr = ["chiseled_sandstone", "sand", "stone", "podzol", "granite", "andesite", "deepslate", "terracotta", "cobblestone", "smooth_basalt","raw_iron_block", "netherite_block", "raw_copper_block", "prismarin_bricks", "ice","gilded_blackstone"];
+    return `id:chest_minecart,Tags:['n'],Items:[{Slot:${pos},id:'${insArr[instrument]}',Count:${pitch}}],Passengers:[{`;
+}
+function generate_command(array){
+    var timesave = array.at(-1).time;
+    var stringfront = `summon armor_stand ~ ~ ~ {Tags:['generate'],Passengers:[{`;
+    var stringafter = "}]}";
+    var commandCount = 0;
+    $.each(array.reverse(), (index, value)=>{
+        if (timesave != value.time){
+            stringfront += getcommand(22, timesave - value.time, 14);
+            stringafter += "]}";
+            timesave = value.time;
+            if (stringfront.length + stringafter.length > 30000){
+                commandCount++;
+                $("#command_list").append(`<tr>
+                <td><button id = "copybutton${commandCount}" value="${commandCount}" style="margin:10px">copy command</button></td>
+                <td><div id="generate${commandCount}" style="margin:0px auto;white-space:nowrap;width: 300px;overflow:clip;">${stringfront+stringafter}</div></td>
+                <td>...</td>
+                </tr>`);
+                $(`#copybutton${commandCount}`).click(copy_command);
+                
+                stringfront = `summon armor_stand ~ ~ ~ {Tags:['generate'],Passengers:[{`;
+                stringafter = "}]}";
+            }
+        }
+        stringfront += getcommand(value.posnum+1, value.noteBlock+1, value.instrument);
+        stringafter += "]}";
+    });
+    commandCount++;
+    $("#command_list").append(`<tr>
+    <td><button id = "copybutton${commandCount}" value="${stringfront+stringafter}" style="margin:10px">copy command</button></td>
+    <td><div id="generate${commandCount}" style="margin:0px auto;white-space:nowrap;width: 300px;overflow:clip;">${stringfront+stringafter}</div></td>
+    <td>...</td>
+    </tr>`);
+    $(`#copybutton${commandCount}`).click(copy_command);
+
+}
+function copy_command(){
+    navigator.clipboard.writeText($(this).val());
+}
 function error(errormsg){
     $("#errormsg").html(errormsg);
 }
-function compile(array, str){
+function compile(array){
+    $("#errormsg").html("");
+    var str = remove_space($("#code_input").val());
+    console.log(str);
+    str = string_times(str);
     var returnval = true;
     var strarr = str.split(" ");
+    console.log(strarr);
     var instrument = "other";
     var pitch = 4;
     var length = 8;
     var isaddTime = 0;
     var time = 0;
     $.each(strarr, (index, value)=>{
+        if (value === ""){
+            return;
+        }
         isaddTime--;
         if (!value.search(/other|wood|sand|glass|stone|gold_block|clay|packed_ice|wool|bone|iron_block|soul_sand|pumpkin|emerald_block|hay_block|glowstone/)){
             instrument = value;
         }else if (!value.search(/[abcdefgr]/)){
             var pointnum = 0;
             var sharp = 0;
-            var nodearray = ["c", "cp", "d", "dp", "e", "f", "fp", "g", "gp", "a", "ap", "b"];
+            var notearray = ["c", "cp", "d", "dp", "e", "f", "fp", "g", "gp", "a", "ap", "b"];
             while(value.slice(-1) === "."){
                 pointnum++;
                 value = value.slice(0,-1);
@@ -56,7 +134,7 @@ function compile(array, str){
                 var half = Math.round(length/2);
                 length += pointnum*half;
             }
-            var ptr = nodearray.indexOf(value.at(0));
+            var ptr = notearray.indexOf(value.at(0));
             if (ptr != -1){
                 var localPitch = pitch;
                 ptr += sharp;
@@ -64,7 +142,7 @@ function compile(array, str){
                     localPitch += Math.floor(ptr/12);
                     ptr = ((ptr % 12) + 12) % 12;
                 }
-                insert_node(array, new NodeClass(instrument, pitch, ptr, time));
+                insert_note(array, new NoteClass(instrument, pitch, ptr, time));
             }
             time += length;
 
@@ -105,12 +183,12 @@ function compile(array, str){
     });
     return returnval;
 }
-function insert_node(array, node){
+function insert_note(array, note){
     var ptr = 0;
-    while (array.at(ptr) && node.biggerthan(array.at(ptr))){
+    while (array.at(ptr) && note.biggerthan(array.at(ptr))){
         ptr++;
     }
-    array.splice(ptr, 0, node);
+    array.splice(ptr, 0, note);
 }
 function string_times(str){
     var matchStr = str.match(/(\[[^\*\[\]]*\]|[\w+-.]+) \* [\d]+/);
@@ -130,8 +208,8 @@ function string_times(str){
     str = str.replace(/\[[^\*\[\]]*\]/, str.match(/(?<=\[ )[^\*\[\]]*(?= \])/)[0]);
     return string_times(str);
 }
-function playnode(array){
-    var time = new Date().getTime();
+function playnote(array){
+    var time = new Date().getTime()+1000;
     console.log(array);
     $.each(array, (index, value)=>{
         console.log(value);
