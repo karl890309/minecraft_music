@@ -190,6 +190,7 @@ function compile(array){
                     length += Math.round(32/toFloat);
                     var half = Math.round(length/2);
                     length += pointnum*half;
+                    time += length;
                 }else{
                     error(`${value} isn't float`);
                     returnval = false;
