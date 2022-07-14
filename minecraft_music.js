@@ -119,6 +119,7 @@ function compile(array){
         if (!value.search(/other|wood|sand|glass|stone|gold_block|clay|packed_ice|wool|bone|iron_block|soul_sand|pumpkin|emerald_block|hay_block|glowstone/)){
             instrument = value;
             time = 0;
+            pitch = 4;
         }else if (!value.search(/[abcdefgr]/)){
             var pointnum = 0;
             var sharp = 0;
@@ -166,6 +167,7 @@ function compile(array){
             pitch = parseInt(value.match(/[123456789]/));
         }else if (!value.search("V")){
             time = 0;
+            pitch = 4;
         }else if (!value.search(":")){
             return;
         }else if (!value.search(">")){
