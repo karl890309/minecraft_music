@@ -178,9 +178,16 @@ function compile(array){
             isaddTime = 1;
         }else {
             if (!isaddTime){
+                var pointnum = 0;
+                while(value.slice(-1) === "."){
+                    pointnum++;
+                    value = value.slice(0,-1);
+                }
                 var toFloat = parseFloat(value);
                 if (toFloat){
-                    length += Math.round(32/parseFloat(value));
+                    length += Math.round(32/toFloat);
+                    var half = Math.round(length/2);
+                    length += pointnum*half;
                 }else{
                     error(`${value} isn't float`);
                     returnval = false;
