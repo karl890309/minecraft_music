@@ -71,7 +71,7 @@ function generate_command(array){
                 commandCount++;
                 $("#command_list").append(`<tr>
                 <td><button id = "copybutton${commandCount}" value="${commandCount}" style="margin:10px">copy command</button></td>
-                <td><div id="generate${commandCount}" style="margin:0px auto;white-space:nowrap;width: 300px;overflow:clip;">${stringfront+stringafter}</div></td>
+                <td><div id="copybutton${commandCount}" style="margin:0px auto;white-space:nowrap;width: 300px;overflow:clip;">${stringfront+stringafter}</div></td>
                 <td>...</td>
                 </tr>`);
                 $(`#copybutton${commandCount}`).click(copy_command);
