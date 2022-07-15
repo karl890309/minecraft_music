@@ -44,8 +44,11 @@ class NoteClass {
         this.saveTimeout = setTimeout(()=>{
             this.audio = this.audio.cloneNode();
             this.audio.volume = $("#volume").val()/100;
-            this.audio.play();
-        }, this.time*50-(realTime-time));
+            realTime = new Date().getTime();
+            this.saveTimeout = setTimeout(()=>{
+                this.audio.play();
+            }, time*50-(realTime-time));
+        }, this.time*50-(realTime-time)-1000);
     }
     toString(){
         return `${this.insArray.at(this.instrument)}_o${this.pitch}${this.notearray.at(this.note)} delay:${this.time}`;

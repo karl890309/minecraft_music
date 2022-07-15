@@ -236,7 +236,7 @@ function string_times(str){
     return string_times(str);
 }
 function playnote(array){
-    var time = new Date().getTime()+1000;
+    var time = new Date().getTime()+3000;
     $.each(array, (index, value)=>{
         value.play(time);
     });
