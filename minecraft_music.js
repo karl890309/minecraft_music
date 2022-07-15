@@ -275,8 +275,11 @@ function remove_space(str){
             lastIsSpace = false;
             if ((str[i] === ">" || str[i] === "<" || str[i] === "/" || str[i] === "~" || 
             str[i] === ":"|| str[i] === "["|| str[i] === "]"|| str[i] === "*") 
-            && !(newStr[i-1] === " ")){
-                newStr += " " + str[i] + " ";
+            ){
+                if (newStr.at(-1) !== " "){
+                    newStr += " ";
+                }
+                newStr += str[i] + " ";
                 lastIsSpace = true;
             }
             else {
