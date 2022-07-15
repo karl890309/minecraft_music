@@ -156,7 +156,7 @@ function compile(array){
                     insert_note(array, cancreate);
                 }
                 else {
-                    error(`"o${pitch} ${value}" over limit`);
+                    error(`"${instrument} o${pitch} ${value}" over limit`);
                     returnval = false;
                     console.log("error return 5");
                     return;
