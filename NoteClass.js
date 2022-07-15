@@ -16,13 +16,10 @@ class NoteClass {
         this.pitch = pitch;
         this.note = note;
         this.time = time;
-        var temp = $(`#${instrument}_o${pitch}${this.notearray.at(note)}`).get(0)
-        if (temp == undefined){
-            this.audio = undefined;
+        this.audio = $(`#${instrument}_o${pitch}${this.notearray.at(note)}`).get(0)
+        if (this.audio == undefined){
             return ;
         }
-        this.audio = temp.cloneNode();
-        this.audio.volume = $("#volume").val()/100;
         this.noteBlock = (pitch*12+note) - (this.pitchArray.at(this.instrument)*12+6);
         this.posnum = 0;
         this.saveTimeout = null;
@@ -45,6 +42,8 @@ class NoteClass {
     play(time){
         var realTime = new Date().getTime();
         this.saveTimeout = setTimeout(()=>{
+            this.audio = this.audio.cloneNode();
+            this.audio.volume = $("#volume").val()/100;
             this.audio.play();
         }, this.time*50-(realTime-time));
     }
