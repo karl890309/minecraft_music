@@ -138,7 +138,8 @@ function compile(array){
                 value = value.replace(/\-/,"");
             }
             var len = value.match(/[123456789]+(\.[\d]+)?|0\.[\d]+/);
-            if (len){
+            if (len != undefined){
+                console.log(value, len);
                 length = Math.round(32/parseFloat(len));
                 var half = Math.round(length/2);
                 length += pointnum*half;
@@ -188,8 +189,9 @@ function compile(array){
                 }
                 var toFloat = parseFloat(value);
                 if (toFloat){
+                    console.log(value, pointnum);
                     length += Math.round(32/toFloat);
-                    var half = Math.round(length/2);
+                    var half = Math.round(32/toFloat/2);
                     length += pointnum*half;
                     time += length;
                 }else{
