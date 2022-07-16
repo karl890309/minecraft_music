@@ -68,11 +68,11 @@ function generate_command(array){
             stringfront += getcommand(22, timesave - value.time, 14);
             stringafter += "]}";
             timesave = value.time;
-            if (stringfront.length + stringafter.length > 30000){
+            if (stringfront.length + stringafter.length > 15000){
                 commandCount++;
                 $("#command_list").append(`<tr>
                 <td><button id = "copybutton${commandCount}" value="${stringfront+stringafter}" style="margin:10px">copy command</button></td>
-                <td><div id="copybutton${commandCount}" style="margin:0px auto;white-space:nowrap;width: 300px;overflow:clip;">${stringfront+stringafter}</div></td>
+                <td><div id="copybutton${commandCount}val" style="margin:0px auto;white-space:nowrap;width: 300px;overflow:clip;">${stringfront+stringafter}</div></td>
                 <td>...</td>
                 </tr>`);
                 $(`#copybutton${commandCount}`).click(copy_command);
