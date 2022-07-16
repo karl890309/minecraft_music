@@ -71,7 +71,7 @@ function generate_command(array){
             if (stringfront.length + stringafter.length > 30000){
                 commandCount++;
                 $("#command_list").append(`<tr>
-                <td><button id = "copybutton${commandCount}" value="${commandCount}" style="margin:10px">copy command</button></td>
+                <td><button id = "copybutton${commandCount}" value="${stringfront+stringafter}" style="margin:10px">copy command</button></td>
                 <td><div id="copybutton${commandCount}" style="margin:0px auto;white-space:nowrap;width: 300px;overflow:clip;">${stringfront+stringafter}</div></td>
                 <td>...</td>
                 </tr>`);
