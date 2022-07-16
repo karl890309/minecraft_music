@@ -45,7 +45,7 @@ class NoteClass {
             this.audio = this.audio.cloneNode();
             this.audio.volume = $("#volume").val()/100;
             this.saveTimeout = setTimeout(()=>{
-                console.log(this.audio, "play");
+                this.audio.play();
             }, 1000);
         }, this.time*50-(realTime-time)-1000);
     }
