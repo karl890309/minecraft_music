@@ -12,6 +12,7 @@ $(()=>{ //$(document).ready(function(){
             console.log("error return 4", array);
             return;
         };
+        //console.log(array);
         playnote(array);
         generate_command(array);
     });
@@ -138,8 +139,7 @@ function compile(array){
                 value = value.replace(/\-/,"");
             }
             var len = value.match(/[123456789]+(\.[\d]+)?|0\.[\d]+/);
-            if (len != undefined){
-                console.log(value, len);
+            if (len){
                 length = Math.round(32/parseFloat(len));
                 var half = Math.round(length/2);
                 length += pointnum*half;
@@ -189,18 +189,16 @@ function compile(array){
                 }
                 var toFloat = parseFloat(value);
                 if (toFloat){
-                    console.log(value, pointnum);
                     length += Math.round(32/toFloat);
                     var half = Math.round(32/toFloat/2);
                     length += pointnum*half;
-                    time += length;
+                    time += Math.round(32/toFloat) + pointnum*half
                 }else{
                     error(`${value} isn't float`);
                     returnval = false;
                     console.log("error return 1");
                     return;
                 }
-                
             }else{
                 error(`compile error at ${value}`);
                 returnval = false;
