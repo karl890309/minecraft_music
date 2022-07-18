@@ -23,7 +23,6 @@ class NoteClass {
             return ;
         }
         this.noteBlock = (pitch*12+note) - (this.pitchArray.at(this.instrument)*12+6);
-        
     }
     changeins(){
         var order = [14, 15, 0, 3];
