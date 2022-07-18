@@ -30,7 +30,7 @@ class NoteClass {
         var savenotenum;
         $.each(order, (i, value)=>{
             savenotenum = (this.pitch*12+this.note) - (this.pitchArray.at(value)*12+6);
-            if (savenotenum <= 24 && savenotenum >= 0){
+            if (savenotenum <= 24 && savenotenum >= 0 && !this.canplay()){
                 this.instrument = value;
                 this.noteBlock = savenotenum;
                 this.audio = $(`#${this.insArray.at(value)}_o${this.pitch}${this.notearray.at(this.note)}`).get(0);
