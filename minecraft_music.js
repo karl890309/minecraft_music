@@ -19,6 +19,15 @@ $(()=>{ //$(document).ready(function(){
     $("#volume").get()[0].oninput = function(){
         $("#show_volume").html("volume: "+$("#volume").val());
     }
+    $("#checkboxlable").click(()=>{
+        var checkbox = $("#autochangeins");
+        if (checkbox.prop("checked")){
+            checkbox.prop("checked",false);
+        }
+        else {
+            checkbox.prop("checked",true);
+        }
+    })
 });
 function set_note_pos(array){
     var list = [];
@@ -153,6 +162,9 @@ function compile(array){
                     ptr = ((ptr % 12) + 12) % 12;
                 }
                 var cancreate = new NoteClass(instrument, pitch, ptr, time);
+                if (!cancreate.canplay() && $("#autochangeins").prop("checked")){
+                    cancreate.changeins();
+                }
                 if (cancreate.canplay()){
                     insert_note(array, cancreate);
                 }
@@ -236,7 +248,7 @@ function string_times(str){
     return string_times(str);
 }
 function playnote(array){
-    var time = new Date().getTime()+3000;
+    var time = new Date().getTime()+2000;
     $.each(array, (index, value)=>{
         value.play(time);
     });

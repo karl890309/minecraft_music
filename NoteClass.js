@@ -16,13 +16,26 @@ class NoteClass {
         this.pitch = pitch;
         this.note = note;
         this.time = time;
-        this.audio = $(`#${instrument}_o${pitch}${this.notearray.at(note)}`).get(0)
+        this.audio = $(`#${instrument}_o${pitch}${this.notearray.at(note)}`).get(0);
+        this.posnum = 0;
+        this.saveTimeout = null;
         if (this.audio == undefined){
             return ;
         }
         this.noteBlock = (pitch*12+note) - (this.pitchArray.at(this.instrument)*12+6);
-        this.posnum = 0;
-        this.saveTimeout = null;
+        
+    }
+    changeins(){
+        var order = [14, 15, 0, 3];
+        var savenotenum;
+        $.each(order, (i, value)=>{
+            savenotenum = (this.pitch*12+this.note) - (this.pitchArray.at(value)*12+6);
+            if (savenotenum <= 24 && savenotenum >= 0){
+                this.instrument = value;
+                this.noteBlock = savenotenum;
+                this.audio = $(`#${this.insArray.at(value)}_o${this.pitch}${this.notearray.at(this.note)}`).get(0);
+            }
+        })
     }
     canplay(){
         return this.audio != undefined;
