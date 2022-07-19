@@ -72,6 +72,7 @@ class NoteClass {
     }
     kill_timeout(){
         if (this.saveTimeout){
+            delete this.audio;
             clearTimeout(this.saveTimeout);
         }
     }

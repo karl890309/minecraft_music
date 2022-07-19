@@ -2,7 +2,7 @@ $(()=>{ //$(document).ready(function(){
     var playing = false;
     var array = [];
     $("#playsound").click(()=>{
-        $.each(array, (i, val)=>{val.kill_timeout()})
+        $.each(array,async (i, val)=>{val.kill_timeout()})
         array = [];
         if (!compile(array)){
             console.log("error return 3", array);
