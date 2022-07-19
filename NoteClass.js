@@ -58,6 +58,9 @@ class NoteClass {
             this.audio.volume = $("#volume").val()/100;
             this.saveTimeout = setTimeout(()=>{
                 this.audio.play();
+                this.audio.onended = ()=>{
+                    delete this.audio;
+                };
             }, 1000);
         }, this.time*50-(realTime-time)-1000);
     }

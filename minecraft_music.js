@@ -249,7 +249,7 @@ function string_times(str){
 }
 function playnote(array){
     var time = new Date().getTime()+2000;
-    $.each(array, (index, value)=>{
+    $.each(array,async (index, value)=>{
         value.play(time);
     });
 }
