@@ -60,7 +60,7 @@ function set_note_pos(array){
     return returnval;
 }
 function getcommand(pos, pitch, instrument){
-    var insArr = ["chiseled_sandstone", "sand", "stone", "podzol", "granite", "andesite", "deepslate", "terracotta", "cobblestone", "smooth_basalt","raw_iron_block", "netherite_block", "raw_copper_block", "prismarine_bricks", "ice","gilded_blackstone"];
+    var insArr = ["chiseled_sandstone", "sand", "stone", "podzol", "granite", "andesite", "deepslate", "terracotta", "cobblestone", "redstone_ore" ,"smooth_basalt","raw_iron_block", "netherite_block", "raw_copper_block", "ice","gilded_blackstone"];
     console.log(`id:chest_minecart,Tags:['n'],Items:[{Slot:${pos},id:'${insArr[instrument]}',Count:${pitch}}],Passengers:[{`);
     return `id:chest_minecart,Tags:['n'],Items:[{Slot:${pos},id:'${insArr[instrument]}',Count:${pitch}}],Passengers:[{`;
 }
