@@ -1,6 +1,6 @@
 class NoteClass {
     insArray = ["wood","glass","stone","gold_block","clay","packed_ice","bone_block","iron_block","soul_sand","pumpkin","emerald_block","hay_block","glowstone","sand","other","wool"];
-    pitchArray = [1,    4.5,    4.5,    5,           4,     5,           5,     3,           4,          1,        3,              3,          3,          0,     3,     2];
+    pitchArray = [1,    3.5,    3.5,    5,           4,     5,           5,           3,           4,          1,        3,              3,          3,          3.5,   3,      2];
     notearray = ["c", "cp", "d", "dp", "e", "f", "fp", "g", "gp", "a", "ap", "b"];
     constructor (instrument, pitch, note, time){
         this.instrument = this.insArray.indexOf(instrument);
