@@ -12,7 +12,7 @@ $(()=>{ //$(document).ready(function(){
             console.log("error return 4", array);
             return;
         };
-        //console.log(array);
+        console.log(array);
         playnote(array);
         generate_command(array);
     });
@@ -60,7 +60,8 @@ function set_note_pos(array){
     return returnval;
 }
 function getcommand(pos, pitch, instrument){
-    var insArr = ["chiseled_sandstone", "sand", "stone", "podzol", "granite", "andesite", "deepslate", "terracotta", "cobblestone", "smooth_basalt","raw_iron_block", "netherite_block", "raw_copper_block", "prismarin_bricks", "ice","gilded_blackstone"];
+    var insArr = ["chiseled_sandstone", "sand", "stone", "podzol", "granite", "andesite", "deepslate", "terracotta", "cobblestone", "smooth_basalt","raw_iron_block", "netherite_block", "raw_copper_block", "prismarine_bricks", "ice","gilded_blackstone"];
+    console.log(`id:chest_minecart,Tags:['n'],Items:[{Slot:${pos},id:'${insArr[instrument]}',Count:${pitch}}],Passengers:[{`);
     return `id:chest_minecart,Tags:['n'],Items:[{Slot:${pos},id:'${insArr[instrument]}',Count:${pitch}}],Passengers:[{`;
 }
 function generate_command(array){
