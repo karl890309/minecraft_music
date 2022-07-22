@@ -31,6 +31,15 @@ class NoteClass {
             savenotenum = (this.pitch*12+this.note) - (this.pitchArray.at(value)*12+6);
             if (savenotenum <= 24 && savenotenum >= 0 && !this.canplay()){
                 this.instrument = value;
+                if (this.instrument == 15){
+                    this.limit = [5,15];
+                }else if (this.instrument == 14){
+                    this.limit = [0,20];
+                }else if (this.instrument == 13){
+                    this.limit = [7,20];
+                }else {
+                    this.limit = [5,20];
+                }
                 this.noteBlock = savenotenum;
                 this.audio = $(`#${this.insArray.at(value)}_o${this.pitch}${this.notearray.at(this.note)}`).get(0);
             }
